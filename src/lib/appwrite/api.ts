@@ -56,9 +56,19 @@ export async function signInAccount(user: { email: string; password: string }) {
   }
 }
 
-export async function getCurrentUser() {
+export async function getAccount() {
   try {
     const currentAccount = await account.get();
+
+    return currentAccount;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getCurrentUser() {
+  try {
+    const currentAccount = await getAccount();
 
     if (!currentAccount) throw Error;
 
@@ -69,6 +79,18 @@ export async function getCurrentUser() {
     return currentUser.documents[0];
   } catch (error) {
     console.log("Error -> getCurrentUser: ", error);
+  }
+}
+
+export async function getUserById(userId: string) {
+  try {
+    const user = await databases.getDocument(appwriteConfig.databaseId, appwriteConfig.userCollectionId, userId);
+
+    if (!user) throw Error;
+
+    return user;
+  } catch (error) {
+    console.log(error);
   }
 }
 
