@@ -1,50 +1,54 @@
-# React + TypeScript + Vite
+# Social Media Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Snapgram is a modern social media clone project developed with cutting-edge web technologies. Designed to offer a native mobile-like experience on the web, Snapgram allows users to share posts, like content, and interact with other users in a dynamic and engaging environment. With a sleek and responsive UI, Snapgram combines powerful front-end architecture and a cloud-based backend, making it both scalable and high-performing for seamless social interactions.
 
-Currently, two official plugins are available:
+## Technologies
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* _TypeScript:_ Adds type safety to the codebase, making it more reliable and maintainable.
+* _Tailwind CSS:_ Ensures a flexible user interface with fast, modular styling definitions.
+* _React Context API:_ Provides global state management for the application.
+* _React Router: Enables:_ fast and efficient navigation between in-app pages.
+* _ShadCN:_ A component library used to create a consistent and elegant user interface.
+* _TanStack Query (React Query):_ Utilized for data caching, automatic refetching, parallel queries, and state management.
+* _Appwrite:_ Used as a Backend as a Service (BaaS) for server management, authentication, and data handling.
 
-## Expanding the ESLint configuration
+## Quick Start:
+Follow these steps..
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+1.Clone this repository to your local machine:
+```
+  git clone https://github.com/selenkunkcu/snapgram.git
+  cd snapgram
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+2. Install dependencies using npm or yarn:
 ```
+npm install
+```
+
+4. Create a new file named .env in the root of your project and add set up the environment variables:
+ ```
+VITE_APPWRITE_URL=
+VITE_APPWRITE_PROJECT_ID=
+VITE_APPWRITE_DATABASE_ID=
+VITE_APPWRITE_STORAGE_ID=
+VITE_APPWRITE_USER_COLLECTION_ID=
+VITE_APPWRITE_POST_COLLECTION_ID=
+VITE_APPWRITE_SAVES_COLLECTION_ID=
+```
+Replace the placeholder values with your actual Appwrite credentials. You can obtain these credentials by signing up on the Appwrite website.
+
+5. Start the development server:
+```
+npm run dev
+```
+
+6. Open your web browser and navigate to http://localhost:3000 to view the Snapgram.
+
+# Features
+* Post Sharing: Users can create and share posts with others.
+* Like System: Users can like posts, enhancing interaction among users.
+* User Profile: Users can edit their own profiles and view profiles of other users.
+* State Management: User state is managed globally across the application using React Context API.
+* Automatic Caching and Data Updates: TanStack Query ensures faster and more efficient data management through caching and background updates.
+_More exciting features coming soon!_
