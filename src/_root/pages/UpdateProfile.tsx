@@ -14,6 +14,7 @@ import ProfileUploader from "../../components/shared/ProfileUploader";
 import { ProfileValidation } from "../../lib/validation";
 import { useUserContext } from "../../context/AuthContext";
 import { useGetUserById, useUpdateUser } from "../../lib/react-query/queriesAndMutations";
+import { useEffect } from "react";
 
 const UpdateProfile = () => {
   const { toast } = useToast();
@@ -34,8 +35,17 @@ const UpdateProfile = () => {
   const { data: currentUser } = useGetUserById(id || "");
   const { mutateAsync: updateUser, isPending: isLoadingUpdate } = useUpdateUser();
 
-  console.log("user-- ", user);
-  console.log("current user--", currentUser);
+  useEffect(() => {
+    if (currentUser) {
+      form.reset({
+        file: [],
+        name: currentUser.name || "",
+        username: currentUser.username || "",
+        email: currentUser.email || "",
+        bio: currentUser.bio || "",
+      });
+    }
+  }, [currentUser]);
 
   if (!currentUser) {
     return (
@@ -46,6 +56,7 @@ const UpdateProfile = () => {
   }
 
   const handleUpdate = async (value: z.infer<typeof ProfileValidation>) => {
+    console.log("Submitted Form Data:", value);
     const updatedUser = await updateUser({
       userId: currentUser.$id,
       name: value.name,
@@ -99,7 +110,7 @@ const UpdateProfile = () => {
                 <FormItem>
                   <FormLabel className="shad-form_label">Name</FormLabel>
                   <FormControl>
-                    <Input type="text" className="shad-input" {...field} value={currentUser.name} />
+                    <Input type="text" className="shad-input" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -112,7 +123,7 @@ const UpdateProfile = () => {
                 <FormItem>
                   <FormLabel className="shad-form_label">Username</FormLabel>
                   <FormControl>
-                    <Input type="text" className="shad-input" {...field} disabled value={currentUser.username} />
+                    <Input type="text" className="shad-input" {...field} disabled />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -125,7 +136,7 @@ const UpdateProfile = () => {
                 <FormItem>
                   <FormLabel className="shad-form_label">Email</FormLabel>
                   <FormControl>
-                    <Input type="text" className="shad-input" {...field} disabled value={currentUser.email} />
+                    <Input type="text" className="shad-input" {...field} disabled />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -138,7 +149,7 @@ const UpdateProfile = () => {
                 <FormItem>
                   <FormLabel className="shad-form_label">Bio</FormLabel>
                   <FormControl>
-                    <Textarea className="shad-textarea custom-scrollbar" {...field} value={currentUser.bio} />
+                    <Textarea className="shad-textarea custom-scrollbar" {...field} />
                   </FormControl>
                   <FormMessage className="shad-form_message" />
                 </FormItem>
